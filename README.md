@@ -1,11 +1,11 @@
-# gdrivetoboxtransfer
+このスクリプトは、Google ドライブ内の「Shogakukan」フォルダを巡回し、各漫画タイトルの「Lettering」フォルダ配下にあるフォルダとファイルを、Box の【翻訳マスターデータ】マンガ翻訳フォルダへ転送します。
+スクリプトはタイトル間の名前を小文字に変換して比較し、一致するかどうかを確認します。正しいタイトルが見つかった後、スクリプトは、たとえば第50話の場合に「1-100」という章範囲フォルダが存在するかをチェックし、存在しなければ作成します。
+その後、既にこの章用のフォルダが存在するか、また Google と Box の両方のフォルダ内のファイルが一致しているかを確認し、一致しない場合は「0050」という名前のフォルダを作成してファイルを転送します。
 
-The script goes through folder Shogakukan at Google drive and transfers folders with files from under folder Lettering from each manga title to 【翻訳マスターデータ】マンガ翻訳 at box. The script compares name between titles by lowring the rgister and checking if names match. After finding the correct title, the scripts checks if appropriate chapter range folder, for example, 1-100 for chapter 50 exists, if not - creates if. Then checks if there is already folder for this chapter and if files inside both folers between google and box matches. If not - creates and names folder 0050 and transfer files. 
+もし、数字の間にハイフン（-）またはアンダースコア（）を含む形式の章範囲フォルダが既に存在する場合は、新しいフォルダは作成されません。適切な章フォルダが見つからなかった場合は、アンダースコア（）を用いて新たに作成します（例：301_400）。
 
-If chapter range folder exists with - or _ between numbers - new folder wouldn't be created. If none appropriate chapter folder was found  - creates one with _, for example 301_400. 
+接続が途切れた際にファイルが失われないよう、ファイルは20秒のタイムアウトと10回の試行を伴うリトライ機能を利用してコピーされます。これは通常、Boxの複数リクエストに対する制限を回避するのに十分です。
 
-To avoid lost files when connection was stopped, files are copying with retry and timeout of 20 s and 10 tries. Usually enough to avoid Box restriction to multiple requests. 
+Box のログイントークンは自動的に更新されます。
 
-Box login tokens are being refreshed authomatically.
-
-Google drive login done by creating token.json. 
+Google ドライブへのログインは、token.json の作成により行われます。
